@@ -1,0 +1,10 @@
+const express = require("express");
+const router = express.Router();
+const { getEvents, getEventBySlug, createEvent, deleteEvent } = require("../controllers/eventController");
+const { protect, admin } = require("../middleware/authMiddleware");
+
+router.route("/").get(getEvents).post(protect, admin, createEvent);
+router.route("/:id").delete(protect, admin, deleteEvent);
+router.route("/slug/:slug").get(getEventBySlug);
+
+module.exports = router;
